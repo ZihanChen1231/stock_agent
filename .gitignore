@@ -1,0 +1,26 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# venv
+.venv/
+env/
+
+# macOS
+.DS_Store
+
+# logs
+*.log
+
+# ollama models（如果你存路径）
+*.bin
+
+# local db
+chroma/
+*.db
+
+# secrets
+.env
+
