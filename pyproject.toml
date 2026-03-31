@@ -3,12 +3,14 @@ name = "stock-agent"
 version = "0.1.0"
 description = "Local stock analysis agent with FastAPI, RAG, and a ReAct-style tool loop."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.11,<3.12"
 dependencies = [
+  "chromadb-client>=1.0.0,<2.0.0",
   "fastapi>=0.115.0,<1.0.0",
   "httpx>=0.28.0,<1.0.0",
   "pydantic-settings>=2.7.0,<3.0.0",
   "uvicorn[standard]>=0.34.0,<1.0.0",
+  "ycnbc>=1.0.12,<2.0.0",
 ]
 
 [project.optional-dependencies]
@@ -27,3 +29,6 @@ include = ["app*"]
 [tool.pytest.ini_options]
 pythonpath = ["."]
 testpaths = ["tests"]
+
+[tool.uv]
+package = true

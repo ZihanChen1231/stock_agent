@@ -1,28 +1,20 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-VENV_DIR="${ROOT_DIR}/.venv"
-PYTHON_BIN="${PYTHON_BIN:-python3}"
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PYTHON_VERSION="${PYTHON_VERSION:-3.11}"
 
 echo "Project root: ${ROOT_DIR}"
 
-if ! command -v "${PYTHON_BIN}" >/dev/null 2>&1; then
-  echo "Error: ${PYTHON_BIN} is not installed." >&2
+if ! command -v uv >/dev/null 2>&1; then
+  echo "Error: uv is not installed." >&2
   exit 1
 fi
 
-if [ ! -d "${VENV_DIR}" ]; then
-  echo "Creating virtual environment at ${VENV_DIR}"
-  "${PYTHON_BIN}" -m venv "${VENV_DIR}"
-fi
+echo "Creating or updating uv virtual environment with Python ${PYTHON_VERSION}"
+uv venv --python "${PYTHON_VERSION}" "${ROOT_DIR}/.venv"
 
-source "${VENV_DIR}/bin/activate"
+echo "Syncing project dependencies"
+uv sync --project "${ROOT_DIR}" --extra dev
 
-echo "Upgrading packaging tools"
-python -m pip install --upgrade pip setuptools wheel
-
-echo "Installing project dependencies"
-pip install -e ".[dev]"
-
-echo "Build completed successfully."
+echo "uv build completed successfully."

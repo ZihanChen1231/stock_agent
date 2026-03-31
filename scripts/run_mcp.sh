@@ -3,7 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 HOST="${HOST:-127.0.0.1}"
-PORT="${PORT:-8010}"
+PORT="${PORT:-8001}"
 
 if ! command -v uv >/dev/null 2>&1; then
   echo "Error: uv is not installed." >&2
@@ -20,11 +20,5 @@ if ! uv run --project "${ROOT_DIR}" python -c "import fastapi, uvicorn" >/dev/nu
   "${ROOT_DIR}/scripts/build.sh"
 fi
 
-if [ -f "${ROOT_DIR}/.env" ]; then
-  echo "Using environment from ${ROOT_DIR}/.env"
-elif [ -f "${ROOT_DIR}/.env.example" ]; then
-  echo "Tip: copy .env.example to .env if you want custom configuration."
-fi
-
-echo "Starting Stock Analysis Agent at http://${HOST}:${PORT}"
-exec uv run --project "${ROOT_DIR}" uvicorn app.main:app --host "${HOST}" --port "${PORT}" --reload
+echo "Starting MCP server at http://${HOST}:${PORT}"
+exec uv run --project "${ROOT_DIR}" uvicorn app.mcp.api:app --host "${HOST}" --port "${PORT}" --reload

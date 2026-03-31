@@ -1,0 +1,22 @@
+{
+  "sources": [
+    {
+      "id": "tech-notes",
+      "type": "file",
+      "location": "data/knowledge/market_framework.md",
+      "metadata": {
+        "field": "tech",
+        "topic": "stock-analysis-framework"
+      }
+    },
+    {
+      "id": "energy-sector-page",
+      "type": "url",
+      "location": "https://www.cnbc.com/energy/",
+      "metadata": {
+        "field": "energy",
+        "topic": "sector-news"
+      }
+    }
+  ]
+}
